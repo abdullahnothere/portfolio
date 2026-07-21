@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Palette: Keppel / Gunmetal / Outer Space / Arsenic / Rhythm.
+  Light is the default. Dark is a re-derived scheme, not an inversion:
+  the mint lightens and the greys warm slightly so contrast holds both ways.
+*/
+@layer base {
+  :root {
+    --ground: 160 11% 96%;
+    --surface: 0 0% 100%;
+    --raised: 165 20% 99%;
+    --hair: 196 18% 40% / 0.22;
+    --ink: 191 37% 10%;
+    --muted: 200 13% 38%;
+    --dim: 196 10% 50%;
+    --mint: 178 63% 33%;
+    --mint-deep: 177 62% 24%;
+    --shadow: 191 30% 15%;
+  }
+
+  .dark {
+    --ground: 194 38% 9%;
+    --surface: 193 29% 13%;
+    --raised: 192 31% 16%;
+    --hair: 200 12% 62% / 0.22;
+    --ink: 167 24% 92%;
+    --muted: 206 10% 62%;
+    --dim: 200 10% 48%;
+    --mint: 177 50% 46%;
+    --mint-deep: 178 48% 32%;
+    --shadow: 0 0% 0%;
+  }
+
+  * { @apply border-hair; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+  body {
+    @apply bg-ground text-ink font-sans antialiased;
+    font-size: 16.5px;
+    line-height: 1.65;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-extrabold;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  ::selection { background: hsl(var(--mint) / 0.22); }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--mint));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-content px-7; }
+
+  .eyebrow {
+    @apply mb-5 flex items-center gap-2.5 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-mint;
+  }
+  .eyebrow::after { content: ""; @apply h-px flex-1 bg-hair; }
+
+  .lede { @apply max-w-[62ch] text-muted; }
+
+  .card { @apply rounded-xl border border-hair bg-surface p-6 transition-all duration-200; }
+  .card-link:hover { @apply -translate-y-0.5 border-mint shadow-lift; }
+
+  .tag { @apply rounded-md border border-hair px-2 py-[3px] font-mono text-[0.64rem] uppercase tracking-[0.08em] text-dim; }
+}
+
+/*
+  Scroll-reveal system.
+
+  .reveal-base     — the wrapper, always visible by default.
+  .reveal-pending  — added by JS on the client. Hides it before intersection.
+  .reveal-in       — added when the element enters the viewport.
+
+  Key guarantee: if JS never runs, .reveal-pending is never added, so content
+  is always visible. The animation is a progressive enhancement.
+*/
+.reveal-base {
+  /* Visible by default — no opacity:0 on the server. */
+}
+
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.65s cubic-bezier(0.2, 0.7, 0.2, 1),
+              transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-pending { opacity: 1; transform: none; }
+  .reveal-in { transition: none; }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+}

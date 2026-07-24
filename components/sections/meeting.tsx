@@ -1,66 +1,35 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Section } from "@/components/ui/section";
-import { ButtonLink } from "@/components/ui/button";
 import { site } from "@/content/site";
 
 /**
- * Calendly is only loaded once the section is near the viewport. A third-party
- * scheduling widget should not cost anything on first paint.
+ * Calendly's script loads once, site-wide, via <CalendlyScript> in
+ * app/layout.tsx — with next/script strategy="afterInteractive", so it
+ * fetches in the background right after hydration, in parallel with the rest
+ * of the page. By the time someone scrolls nine sections down to reach this
+ * one, the script has almost always already run.
+ *
+ * The widget div is rendered unconditionally rather than gated behind an
+ * IntersectionObserver + a second loading state. Calendly's script scans the
+ * DOM for `.calendly-inline-widget` on load and initialises whatever it
+ * finds — the div doesn't need to appear *after* the script, only before it
+ * runs, which SSR already guarantees.
  */
 export function Meeting() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [load, setLoad] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setLoad(true); io.disconnect(); } },
-      { rootMargin: "300px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!load) return;
-    const s = document.createElement("script");
-    s.src = "https://assets.calendly.com/assets/external/widget.js";
-    s.async = true;
-    document.body.appendChild(s);
-    const l = document.createElement("link");
-    l.rel = "stylesheet";
-    l.href = "https://assets.calendly.com/assets/external/widget.css";
-    document.head.appendChild(l);
-    return () => { s.remove(); l.remove(); };
-  }, [load]);
-
   return (
     <Section id="meeting" eyebrow="Book a meeting">
       <h2 className="mb-3 text-[clamp(1.9rem,3.6vw,2.7rem)]">Fifteen minutes, no agenda needed</h2>
       <p className="lede mb-7">
-        Pick a slot and it lands in both calendars. Useful for a first screen, or if you would rather ask
-        questions than read.
+        Pick a slot and it lands in both calendars. Useful for a first screen, a quick technical
+        question, or a freelance engagement worth talking through.
       </p>
 
-      <div ref={ref} className="rounded-xl border border-hair bg-surface">
-        {load ? (
-          <div className="calendly-inline-widget min-h-[660px]" data-url={`${site.calendly}?hide_gdpr_banner=1`} />
-        ) : (
-          <div className="grid min-h-[240px] place-items-center p-11 text-center">
-            <div>
-              <p className="mb-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-dim">
-                Scheduling
-              </p>
-              <p className="lede mx-auto mb-5">Loading the calendar…</p>
-              <ButtonLink href={site.calendly} variant="primary" external>
-                Open scheduling in a new tab
-              </ButtonLink>
-            </div>
-          </div>
-        )}
+      <div className="overflow-hidden rounded-xl border border-hair bg-surface">
+        <div
+          className="calendly-inline-widget min-h-[660px]"
+          data-url={`${site.calendly}?hide_gdpr_banner=1`}
+        />
       </div>
     </Section>
   );

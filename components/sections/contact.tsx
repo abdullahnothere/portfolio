@@ -43,7 +43,8 @@ export function Contact() {
         <div>
           <h2 className="mb-3.5 text-[clamp(1.9rem,3.6vw,2.7rem)]">Say hello</h2>
           <p className="lede mb-7">
-            Happy to talk about graduate roles, security engineering, or anything in the notes above. I
+            Happy to talk about graduate roles, security engineering, freelance work, or anything in
+            the notes above. I
             reply within a day or two.
           </p>
 

@@ -10,6 +10,14 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
+    title: "Software engineering",
+    note: "Two years of it commercially, which is why security problems look like systems problems.",
+    items: [
+      "Python", "Bash", "TypeScript", "JavaScript", "SQL", "Node.js", "React",
+      "PostgreSQL", "MongoDB", "REST APIs", "Git", "CI/CD", "Linux",
+    ],
+  },
+  {
     title: "Cloud and container security",
     note: "Enough to run what I build, and to reason about its blast radius.",
     items: [
@@ -47,14 +55,6 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "TCP/IP", "DNS", "DHCP", "VPN", "SMB", "OSPF", "VLANs", "ACLs",
       "Firewalls", "Network segmentation", "RBAC", "AAA and TACACS+",
-    ],
-  },
-  {
-    title: "Engineering",
-    note: "Two years of it commercially, which is why security problems look like systems problems.",
-    items: [
-      "Python", "Bash", "TypeScript", "JavaScript", "SQL", "Node.js", "React",
-      "PostgreSQL", "MongoDB", "REST APIs", "Git", "CI/CD", "Linux",
     ],
   },
 ];

@@ -8,10 +8,11 @@ import { projects } from "@/content/projects";
 export function Projects() {
   return (
     <Section id="projects" eyebrow="Selected work">
-      <h2 className="mb-3.5 text-[clamp(1.9rem,3.6vw,2.7rem)]">Six case studies</h2>
+      <h2 className="mb-3.5 text-[clamp(1.9rem,3.6vw,2.7rem)]">Eight case studies</h2>
       <p className="lede mb-9">
-        Each one written up as a problem, a decision, and what I would do differently. Repositories are
-        linked, but the writeup is the point.
+        MSc work and commercial engineering, each written up as a problem, a decision, and what I
+        would do differently. Most were assessed reports rather than repositories — the writeup is
+        the point.
       </p>
 
       <ul className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">

@@ -10,95 +10,190 @@ export type Note = {
   title: string;
   date: string;
   iso: string;
-  topic: "Container security" | "Cloud security" | "Detection engineering" | "Secure development" | "AI" | "Lessons learned";
+  topic:
+    | "Container security"
+    | "Cloud security"
+    | "Detection engineering"
+    | "Secure development"
+    | "Risk and governance"
+    | "Lessons learned";
   summary: string;
   body: Block[];
 };
 
 export const notes: Note[] = [
   {
-    slug: "what-you-give-up-going-distroless",
-    title: "What you give up when you go distroless",
-    date: "April 2026",
-    iso: "2026-04-12",
+    slug: "one-scanner-is-not-enough",
+    title: "One scanner is not a second opinion",
+    date: "March 2026",
+    iso: "2026-03-04",
     topic: "Container security",
-    summary: "Removing the shell is a real hardening win. It also makes your next incident harder, and almost nobody mentions the second part.",
+    summary:
+      "Two vulnerability scanners disagreed by 25 findings on the same image. The disagreement was the finding.",
     body: [
-      { type: "p", text: "Removing the shell from a production image is one of the highest-leverage hardening changes available to a small team. It is also the change most likely to make your next incident harder to investigate, and almost nobody mentions the second part." },
-      { type: "h", text: "The trade, stated plainly" },
-      { type: "p", text: "A distroless runtime removes the package manager, the shell, and most of the userland. An attacker who achieves remote code execution now has to bring their own tooling. So do you." },
-      { type: "code", filename: "terminal", language: "bash", text: "$ docker exec -it app sh\nOCI runtime exec failed: exec failed:\n  unable to start container process:\n  exec: \"sh\": executable file not found in $PATH" },
-      { type: "h", text: "Build the replacement first" },
-      { type: "p", text: "Before you remove the shell, add the structured logs that answer the questions you would otherwise answer by poking around: what configuration is loaded, what the process can reach, and what it tried last. Doing this afterwards means learning it during an outage." },
-      { type: "list", items: ["Log resolved config at boot, with secrets redacted", "Log every outbound dependency and its resolved address", "Emit a startup self-check that fails loudly rather than degrading quietly"] },
-      { type: "h", text: "When not to bother" },
-      { type: "p", text: "If your team routinely execs into containers as part of normal operations, removing the shell without changing that workflow just moves the risk into whatever people do instead — which is usually a wider-open debug image nobody scans." },
-      { type: "quote", text: "The control is only as good as the workflow it leaves behind." },
+      {
+        type: "p",
+        text: "While hardening a containerised app I ran both Trivy and Grype, mostly out of thoroughness. On the frontend image they disagreed in a way that took a while to believe: Trivy reported thousands of OS-level findings and nothing at all about PHP, on an image whose entire purpose was running PHP.",
+      },
+      { type: "h", text: "Why they disagreed" },
+      {
+        type: "p",
+        text: "The official PHP image compiles PHP from source rather than installing it through the system package manager. A scanner that works by reading the package database therefore cannot see PHP — not because it failed, but because from its perspective PHP is not installed. Grype fingerprints software directly from the binary, identified PHP 7.4.33, and reported 25 vulnerabilities against it, several critical.",
+      },
+      {
+        type: "code",
+        filename: "scan comparison",
+        language: "bash",
+        text: "trivy   frontend:baseline   6,206 unique   PHP findings: 0\ngrype   frontend:baseline     498 unique   PHP 7.4.33: 25\n\n# Same image. Same moment. The gap is methodological,\n# not a bug in either tool.",
+      },
+      { type: "h", text: "What I changed" },
+      {
+        type: "p",
+        text: "I now treat a single-source finding as unconfirmed. Not wrong — unconfirmed. That is a different posture from distrusting tools, and it costs one extra scan to hold.",
+      },
+      {
+        type: "quote",
+        text: "A scanner reporting zero findings in a category is telling you about its own method as much as about your image.",
+      },
     ],
   },
   {
-    slug: "the-n-plus-one-that-cost-two-seconds",
-    title: "The N+1 query that cost two seconds",
+    slug: "pinning-versions-is-not-security",
+    title: "Pinning a version is reproducibility, not security",
     date: "February 2026",
-    iso: "2026-02-03",
-    topic: "Secure development",
-    summary: "The fix was not clever. The way we found it, and the test that keeps it fixed, are worth repeating.",
+    iso: "2026-02-18",
+    topic: "Cloud security",
+    summary:
+      "I pinned a build to a specific release because pinning is good practice. It reintroduced forty vulnerabilities including a critical one.",
     body: [
-      { type: "p", text: "A reporting endpoint took 2.4 seconds at p95. The fix was not clever. The way we found it, and the test we added afterwards, are the parts worth repeating." },
-      { type: "h", text: "Read the trace, not the code" },
-      { type: "p", text: "The code looked fine. The trace showed 380 near-identical queries. Once you can see the shape, the cause is obvious; the difficulty is only ever in getting the shape in front of you." },
-      { type: "code", filename: "trace.log", language: "sql", text: "SELECT * FROM line_items WHERE report_id = $1   -- 380x, 4.9ms each\nSELECT * FROM reports WHERE tenant_id = $1        -- 1x, 12ms" },
-      { type: "h", text: "The fix, and the second fix" },
-      { type: "p", text: "Batching brought p95 to 380ms. The more durable change was a test that fails when a single request issues more than a set number of queries. It has caught two regressions since, both from changes that looked entirely harmless in review." },
-      { type: "code", filename: "reports.test.ts", language: "typescript", text: "it('stays within the query budget', async () => {\n  const { queries } = await withQueryCounter(() => getReport(id));\n  expect(queries).toBeLessThan(12);\n});" },
+      {
+        type: "p",
+        text: "Midway through hardening a backend image I pinned the Go version, on the general principle that unpinned dependencies are a supply chain problem. Then I rescanned, which is the only reason this story has an ending.",
+      },
+      { type: "h", text: "What actually happened" },
+      {
+        type: "p",
+        text: "I had pinned to the first release of the current series. The unpinned build had been quietly pulling a much later patched release. The pin rolled the toolchain back past about a month of fixes and reintroduced roughly forty vulnerabilities, one of them critical.",
+      },
+      {
+        type: "p",
+        text: "Every part of that decision was defensible in isolation. Pin your versions: correct. Pin to the current major series: reasonable. The failure was treating a practice as a rule and not measuring the result.",
+      },
+      { type: "h", text: "The rule I actually use now" },
+      {
+        type: "list",
+        items: [
+          "Pin for reproducibility, always",
+          "Pin to something near the current stable patch, never the series opener",
+          "Rescan after the pin, because the pin is a change like any other",
+        ],
+      },
+      {
+        type: "p",
+        text: "The broader habit is rescanning after every individual change rather than once at the end. Batch the changes and you learn that your posture improved. Rescan each one and you learn which change did what — including the one that made things worse.",
+      },
     ],
   },
   {
-    slug: "least-privilege-is-a-migration",
-    title: "Least privilege is a migration, not a setting",
-    date: "December 2025",
-    iso: "2025-12-09",
-    topic: "Secure development",
-    summary: "Every guide describes least privilege as a state. In a live system it is a migration, and migrations need a way to be wrong safely.",
-    body: [
-      { type: "p", text: "Every guide describes least privilege as a state you arrive at. In a system with users on it, it is a migration — and migrations need a way to be wrong safely." },
-      { type: "h", text: "Shadow mode" },
-      { type: "p", text: "Run the new decision alongside the old one, act on the old one, and log every disagreement. Two weeks of disagreements will teach you more about your permission model than any audit." },
-      { type: "code", filename: "middleware.ts", language: "typescript", text: "const legacy = legacyCheck(user, resource);\nconst next   = policy.evaluate(user, resource);\n\nif (legacy !== next) {\n  log.warn('policy.disagreement', { route, userRole: user.role, legacy, next });\n}\n\nreturn legacy; // still authoritative, for now" },
-      { type: "h", text: "Expect to find load-bearing bugs" },
-      { type: "p", text: "Some disagreements will be places where the old behaviour was wrong and somebody depends on it. That is a product conversation, and finding it in a log is far better than finding it in a support ticket." },
-    ],
-  },
-  {
-    slug: "a-rule-you-cant-test-isnt-a-detection",
-    title: "A detection rule you can't test isn't a detection",
-    date: "November 2025",
-    iso: "2025-11-18",
+    slug: "detecting-encryption-is-too-late",
+    title: "If you detect the encryption, you are doing recovery",
+    date: "January 2026",
+    iso: "2026-01-27",
     topic: "Detection engineering",
-    summary: "Rules decay quietly. A field rename upstream will disable a detection with no alert, and you find out when you needed it.",
+    summary:
+      "T1486 fires reliably and tells you almost nothing. The rules worth writing cover the stages before it.",
     body: [
-      { type: "p", text: "Rules decay quietly. A field rename upstream will disable a detection without raising anything, and you find out at exactly the moment you needed it to work." },
-      { type: "h", text: "Pair every rule with a sample" },
-      { type: "p", text: "One event that must fire it, one that must not. Replay both in CI. This is unglamorous, and it is close to the whole discipline." },
-      { type: "code", filename: ".github/workflows/detections.yml", language: "yaml", text: "- name: Replay detection samples\n  run: |\n    sigma convert -t splunk rules/ > build/rules.spl\n    python harness/replay.py --rules build/rules.spl --samples samples/\n    # exits non-zero if any rule fails to fire on its positive sample" },
-      { type: "h", text: "Negative samples matter more than you think" },
-      { type: "p", text: "A rule that fires on everything passes a positive test perfectly. The negative sample is the one that keeps your analysts willing to look at the alert." },
+      {
+        type: "p",
+        text: "Investigating a simulated ransomware incident in Splunk, the impact was never in doubt: 257 files encrypted on the file server, 406 on the endpoint. Mass file operations over SMB are a loud, unambiguous signal. They are also the least useful one available.",
+      },
+      { type: "h", text: "Working backwards" },
+      {
+        type: "p",
+        text: "Rebuilding the chain meant going from encryption to the process, the process to a dropped temp file, the file to a malicious upload through a web application, and the upload to the brute force attempts that preceded it. Each step earlier in the chain was quieter than the last, and each one represented time that could have been bought.",
+      },
+      {
+        type: "p",
+        text: "The entry point took longer to find than everything after it, because the brute force attempts and the upload only looked like anything once the SMB and HTTP logs were correlated by time. Searched separately, neither was interesting enough to notice.",
+      },
+      { type: "h", text: "Ship the tuning notes with the rule" },
+      {
+        type: "p",
+        text: "For each of the five rules I wrote, I documented thresholds, what to allow-list, and which log source to enrich with. This is unglamorous and it is the difference between a detection someone maintains and an alert someone eventually mutes. A rule handed over without its tuning guidance becomes another team's false positive problem.",
+      },
+      {
+        type: "quote",
+        text: "A detection you can only act on after the impact is a reporting mechanism, not a control.",
+      },
     ],
   },
   {
-    slug: "what-the-support-rota-taught-me",
-    title: "What two years on the support rota taught me about design",
-    date: "September 2025",
-    iso: "2025-09-22",
-    topic: "Lessons learned",
-    summary: "Carrying a pager taught me more about software design than any module. Mostly: the systems that are pleasant at 2am have fewer clever parts.",
+    slug: "framework-selection-is-the-work",
+    title: "Framework selection is most of the work",
+    date: "December 2025",
+    iso: "2025-12-15",
+    topic: "Risk and governance",
+    summary:
+      "Four of the five frameworks I compared would have produced a thorough-looking report that could not support a single finding on a robot controller.",
     body: [
-      { type: "p", text: "Two years of carrying a pager taught me more about software design than any module I have taken. Mostly it taught me that the systems that are pleasant at 2am are the ones with fewer clever parts." },
-      { type: "h", text: "Boring is a feature" },
-      { type: "p", text: "Every abstraction that saved someone typing cost someone else comprehension during an incident. That is not an argument against abstraction, only against unexamined ones." },
-      { type: "h", text: "Write the log line you will want" },
-      { type: "p", text: "The best predictor of how long an incident takes is whether the system said anything useful on its way down. Write logs for the person who will read them under pressure, not for the person writing the feature." },
-      { type: "quote", text: "I enjoy understanding why systems fail just as much as building them." },
+      {
+        type: "p",
+        text: "Auditing ten unpatched OT assets on a vehicle manufacturer's factory floor, the temptation is to reach for the framework you already know. I compared five before choosing, and the comparison turned out to be the substance of the work rather than the preamble to it.",
+      },
+      { type: "h", text: "Why the obvious choices failed" },
+      {
+        type: "list",
+        items: [
+          "ISO 27001 and 27005 are IT-centric — significant adaptation before they say anything about a paint robot",
+          "NIST CSF describes outcomes, not processes, and produces no asset-level measurable findings",
+          "ISO 21434 was directly relevant to two assets and entirely out of scope for the other eight",
+          "IEC 62443 was the only candidate actually built for industrial control environments",
+        ],
+      },
+      {
+        type: "p",
+        text: "IEC 62443 won on applicability, not familiarity. It partitions the estate into zones and conduits, assigns target security levels based on realistic threat actor capability, and produces findings you can certify against.",
+      },
+      { type: "h", text: "Recommendations need an owner" },
+      {
+        type: "p",
+        text: "Every recommendation in the final report carries a named owner, a timeline, the security requirement it satisfies, and the residual risk once it is done. Timelines account for testing patches before deployment, because in an OT environment an untested patch can cause more disruption than the vulnerability it fixes. A recommendation without an owner is a wish.",
+      },
+    ],
+  },
+  {
+    slug: "correct-crypto-is-not-secure-systems",
+    title: "Correct cryptography is not a secure system",
+    date: "November 2025",
+    iso: "2025-11-20",
+    topic: "Secure development",
+    summary:
+      "My AES-CBC implementation is correct and still leaves an integrity gap. Choosing the algorithm was the easy part.",
+    body: [
+      {
+        type: "p",
+        text: "Building a role-based clinical data system, I came in thinking of cryptography as a set of algorithms to select correctly. Choosing AES-256 took about a minute. Everything difficult came afterwards.",
+      },
+      { type: "h", text: "The real question is where the key lives" },
+      {
+        type: "p",
+        text: "Deciding where the key lives, who can unwrap it, and what stays safe when the database is compromised is what forced the design into a key hierarchy: a master data key encrypted under a root key, RSA-OAEP wrapped per researcher so granting access is a key operation rather than re-encrypting every dataset.",
+      },
+      {
+        type: "code",
+        filename: "the decision that mattered",
+        language: "text",
+        text: "ROOT_KEY            env now, HSM in production\n  MDK               AES-256, encrypted at rest\n    per-researcher  RSA-2048 OAEP wrapped\n    datasets        AES-256-CBC\n\nPrivate keys: PBKDF2 then AES before they reach the DB.\nPassword in memory for the session only.",
+      },
+      { type: "h", text: "The gap I shipped knowingly" },
+      {
+        type: "p",
+        text: "CBC carries no integrity tag. My implementation is cryptographically correct and a tampered ciphertext still decrypts to garbage without raising an error. That is not an implementation bug, it is a property of the mode, and I chose it before I understood the consequence properly. GCM or encrypt-then-MAC is the fix and it is where I would start next time.",
+      },
+      {
+        type: "quote",
+        text: "A decision at one layer has consequences several layers down, and the algorithm table is the shallowest layer there is.",
+      },
     ],
   },
 ];

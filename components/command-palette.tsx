@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { projects } from "@/content/projects";
 import { notes } from "@/content/notes";
-import { navItems, site } from "@/content/site";
+import { navItems, resumeVariants } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 type Item = { label: string; href: string; group: string };
@@ -18,10 +18,16 @@ export function CommandPalette() {
 
   const items: Item[] = useMemo(
     () => [
-      ...navItems.map((n) => ({ label: n.label, href: n.href, group: "Go to" })),
+      ...navItems
+        .filter((n) => n.label !== "Résumé")
+        .map((n) => ({ label: n.label, href: n.href, group: "Go to" })),
       ...projects.map((p) => ({ label: p.title, href: `/projects/${p.slug}`, group: "Project" })),
       ...notes.map((n) => ({ label: n.title, href: `/notes/${n.slug}`, group: "Note" })),
-      { label: "Download résumé", href: site.resumePath, group: "Action" },
+      ...resumeVariants.map((r) => ({
+        label: `Résumé — ${r.label}`,
+        href: `/resume?variant=${r.id}`,
+        group: "Résumé",
+      })),
       { label: "Book a meeting", href: "/#meeting", group: "Action" },
     ],
     [],

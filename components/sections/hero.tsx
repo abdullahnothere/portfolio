@@ -1,10 +1,11 @@
 import { ButtonLink } from "@/components/ui/button";
 import { CodePanel } from "@/components/ui/code-panel";
+import { ResumeDropdown } from "@/components/resume-dropdown";
 import { getProject } from "@/content/projects";
 import { site } from "@/content/site";
 
 export function Hero() {
-  const hardening = getProject("container-hardening")!;
+  const hardening = getProject("container-security-hardening")!;
 
   return (
     <section id="home" className="grid scroll-mt-24 grid-cols-1 items-center gap-14 py-24 lg:grid-cols-[1.05fr_0.95fr]">
@@ -19,14 +20,15 @@ export function Hero() {
         </h1>
 
         <p className="my-7 max-w-[52ch] text-muted">
-          I&apos;m Abdullah — a software engineer finishing an MSc in Cyber Security at the University of
-          Warwick, after two years building enterprise SaaS backends at GoSaaS Labs. I enjoy
-          understanding why systems fail just as much as building them.
+          I&apos;m Abdullah — finishing an MSc in Cyber Security Engineering at the University of
+          Warwick, after two years building enterprise platforms at GoSaaS Labs. Detection
+          engineering, container security and forensics, approached as systems problems because
+          that is where I came from.
         </p>
 
         <div className="flex flex-wrap gap-3">
           <ButtonLink href="/#projects" variant="primary">View projects</ButtonLink>
-          <ButtonLink href={site.resumePath} download>Download résumé</ButtonLink>
+          <ResumeDropdown label="Download résumé" />
           <ButtonLink href="/#meeting">Book a meeting</ButtonLink>
         </div>
       </div>

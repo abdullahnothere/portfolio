@@ -9,6 +9,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { CommandHint } from "@/components/command-palette";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { ButtonLink } from "@/components/ui/button";
+import { ResumeDropdown } from "@/components/resume-dropdown";
 import { cn } from "@/lib/utils";
 
 export function Nav() {
@@ -23,8 +24,11 @@ export function Nav() {
           {site.domain}
         </Link>
 
-        <nav aria-label="Primary" className="ml-auto hidden flex-wrap gap-0.5 lg:flex">
+        <nav aria-label="Primary" className="ml-auto hidden flex-wrap items-center gap-0.5 lg:flex">
           {navItems.map((item) => {
+            if (item.label === "Résumé") {
+              return <ResumeDropdown key={item.href} variant="ghost" size="sm" />;
+            }
             const id = item.href.replace("/#", "");
             const on = item.href.startsWith("/#") && active === id;
             return (
@@ -66,7 +70,7 @@ export function Nav() {
           {navItems.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={item.label === "Résumé" ? "/resume" : item.href}
               onClick={() => setOpen(false)}
               className="block py-2.5 text-[0.95rem] text-muted"
             >

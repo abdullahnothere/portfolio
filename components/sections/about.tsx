@@ -11,20 +11,21 @@ export function About() {
           <h2 className="mb-3.5 text-[clamp(1.9rem,3.6vw,2.7rem)]">I like systems I can reason about.</h2>
           <div className="space-y-4">
             <p className="lede">
-              Most of my work focuses on building software that is easier to operate, easier to secure,
-              and easier to understand. In practice that means fewer moving parts, clearer boundaries,
-              and logs that tell you something when things go wrong at 2am.
+              I spent two years as a software engineer on enterprise platforms before moving into
+              security, and that order matters. Most security problems I meet turn out to be systems
+              problems wearing a different hat — a permissive default, a boundary nobody drew, a log
+              that says nothing useful at the moment you need it to.
             </p>
             <p className="lede">
-              I started on the software side — REST APIs, Postgres, access control, the ordinary work of
-              keeping an enterprise product running. The security interest came from being on call. Once
-              you have traced a production incident back to a permissive default, it is hard to stop
-              looking for the next one.
+              At GoSaaS Labs I worked across three global client accounts, built role-based access
+              control and secure search from scratch, and sat with production incidents where the only
+              information available was application behaviour and error output. That is where the
+              interest came from. Tracing an incident back to the decision that allowed it is habit-forming.
             </p>
             <p className="lede">
-              I demonstrate undergraduate lab sessions at Warwick and volunteer running introductory
-              security workshops. Explaining something badly is the fastest way to find out you do not
-              understand it.
+              Now the work is detection engineering, container hardening, penetration testing and
+              forensics. I taught database systems to over a hundred students alongside the engineering
+              job — explaining something badly is the fastest way to find out you do not understand it.
             </p>
           </div>
         </div>

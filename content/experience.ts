@@ -11,7 +11,7 @@ export const experience: Role[] = [
   {
     org: "University of Warwick",
     title: "MSc Cyber Security Engineering",
-    period: "2025 — Sept 2026",
+    period: "2025 to Sept 2026",
     current: true,
     summary:
       "Proactive Cyber Defence, Ethical Hacking, Cloud Security, Network Security, Digital Forensics, Applied Cryptography, Compliance Risk and Governance.",
@@ -21,9 +21,9 @@ export const experience: Role[] = [
     ],
   },
   {
-    org: "GoSaaS Labs — Renesas, Fluke and Tektronix accounts",
+    org: "GoSaaS Labs (Renesas, Fluke and Tektronix accounts)",
     title: "Software Engineer",
-    period: "Jul 2023 — Aug 2025",
+    period: "Jul 2023 to Aug 2025",
     summary: "Enterprise platforms serving three global clients.",
     points: [
       "Investigated and resolved production incidents across enterprise platforms serving three global clients, working from application behaviour, system logs and error output under time pressure",
@@ -35,9 +35,9 @@ export const experience: Role[] = [
     ],
   },
   {
-    org: "FAST — National University of Computer and Emerging Sciences",
+    org: "FAST National University of Computer and Emerging Sciences",
     title: "Database Lab Instructor",
-    period: "Jan 2024 — Jul 2025",
+    period: "Jan 2024 to Jul 2025",
     summary: "Taught database systems alongside full-time engineering work.",
     points: [
       "Taught database systems to over 100 students and was the person they came to when something broke, adapting the explanation to whoever was asking",
@@ -46,21 +46,21 @@ export const experience: Role[] = [
   {
     org: "Infinikorn",
     title: "Associate Software Engineer",
-    period: "Oct 2022 — Dec 2022",
+    period: "Oct 2022 to Dec 2022",
     summary: "Promoted from intern within two months.",
     points: ["Built and maintained web applications using Ruby on Rails, PostgreSQL and Docker"],
   },
   {
-    org: "FAST — National University of Computer and Emerging Sciences",
+    org: "FAST National University of Computer and Emerging Sciences",
     title: "BSc Computer Science",
-    period: "2019 — Aug 2023",
+    period: "2019 to Aug 2023",
     summary: "",
     points: [],
   },
 ];
 
 export const certifications = [
-  "CompTIA Security+ — scheduled 2026",
+  "CompTIA Security+ (scheduled 2026)",
   "Oracle Cloud Infrastructure 2023 AI Certified Foundations Associate",
   "AWS Cloud Practitioner Essentials (AWS Skill Builder)",
 ];

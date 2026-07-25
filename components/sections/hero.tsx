@@ -20,7 +20,7 @@ export function Hero() {
         </h1>
 
         <p className="my-7 max-w-[52ch] text-muted">
-          I&apos;m Abdullah — finishing an MSc in Cyber Security Engineering at the University of
+          I&apos;m Abdullah, finishing an MSc in Cyber Security Engineering at the University of
           Warwick, after two years as a software engineer building backend services and APIs at
           GoSaaS Labs. Now split between detection engineering, container security and forensics,
           approached as systems problems because that is where I came from.
@@ -40,7 +40,7 @@ export function Hero() {
         scroll-reveal wrapper leaves this permanently at opacity 0.
       */}
       <CodePanel
-        filename="Dockerfile — container hardening"
+        filename="Dockerfile: container hardening"
         variant="diff"
         lines={hardening.snippet!.lines}
         footer={hardening.metrics}

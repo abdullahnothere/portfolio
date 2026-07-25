@@ -17,18 +17,18 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", displ
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} — ${site.role}`, template: `%s · ${site.name}` },
+  title: { default: `${site.name} · ${site.role}`, template: `%s · ${site.name}` },
   description: site.description,
   keywords: ["software engineer", "cyber security", "detection engineering", "graduate engineer", "UK", "Warwick"],
   authors: [{ name: site.name, url: site.url }],
   openGraph: {
     type: "website",
     url: site.url,
-    title: `${site.name} — ${site.role}`,
+    title: `${site.name} · ${site.role}`,
     description: site.description,
     siteName: site.domain,
   },
-  twitter: { card: "summary_large_image", title: `${site.name} — ${site.role}`, description: site.description },
+  twitter: { card: "summary_large_image", title: `${site.name} · ${site.role}`, description: site.description },
   alternates: { canonical: site.url, types: { "application/rss+xml": `${site.url}/rss.xml` } },
   robots: { index: true, follow: true },
 };

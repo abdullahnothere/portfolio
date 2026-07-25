@@ -26,9 +26,9 @@ export const projects: Project[] = [
     slug: "ransomware-detection-cyber-range",
     title: "Early ransomware detection cyber range",
     summary:
-      "An isolated range across Kali, Windows 11 and Wazuh, built to measure how early ransomware is actually detectable — and where the coverage is thinner than it looks.",
+      "An isolated range across Kali, Windows 11 and Wazuh, built to measure how early ransomware is actually detectable, and where the coverage is thinner than it looks.",
     year: "2026",
-    module: "MSc dissertation — in progress",
+    module: "MSc dissertation, in progress",
     kind: "Research",
     tags: ["Wazuh", "Sysmon", "MITRE ATT&CK"],
     featured: true,
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     solution:
       "Collect telemetry from Microsoft Defender, Sysmon, Windows Event Logs and network monitoring so the same attack is observed from endpoint, identity and network at once. Then measure detection latency and alert coverage across simulated scenarios and map what fires to MITRE ATT&CK.",
     decisions: [
-      "Three telemetry sources on the same attack rather than one, because the interesting result is which source sees a technique first — not whether any source sees it at all.",
+      "Three telemetry sources on the same attack rather than one, because the interesting result is which source sees a technique first, not whether any source sees it at all.",
       "Latency as the primary measure, not coverage. A technique that is detectable only at the encryption stage is not really covered.",
       "Fully isolated range, so scenarios can be replayed identically instead of compared across runs that were not the same.",
     ],
@@ -64,18 +64,18 @@ export const projects: Project[] = [
     tags: ["Splunk", "SPL", "MITRE ATT&CK"],
     featured: true,
     problem:
-      "A ransomware incident had already run to completion. The question was not what happened at the end — the encryption was obvious — but where it started, and what signal existed before impact that nobody was watching.",
+      "A ransomware incident had already run to completion. The question was not what happened at the end (the encryption was obvious) but where it started, and what signal existed before impact that nobody was watching.",
     context:
       "Simulated incident investigated in Splunk, correlating Sysmon process events, Windows Event Logs, SMB traffic and HTTP data across an endpoint and a file server.",
     solution:
       "Rebuild the chain backwards from impact: trace the encryption to the process, the process to a temp file dropped on the host, the file to a malicious upload through a web application, and the upload to the brute force attempts that preceded it. Then write detection rules for each stage and map them to ATT&CK and D3FEND.",
     decisions: [
-      "Quantified impact instead of describing it — 257 files encrypted on the file server, 406 on the endpoint — because a number is auditable and an adjective is not.",
+      "Quantified impact instead of describing it: 257 files encrypted on the file server, 406 on the endpoint, because a number is auditable and an adjective is not.",
       "Wrote tuning guidance for every rule alongside the rule itself: thresholds, allow lists, and which log source to enrich with. A rule shipped without its tuning notes becomes someone else's false positive problem.",
       "Mapped to D3FEND as well as ATT&CK, so each detection is paired with the defensive control it supports rather than just the technique it names.",
     ],
     challenges:
-      "Finding the entry point took longer than everything after it. The brute force attempts only became visible once the SMB and HTTP logs were correlated by time rather than searched separately — in isolation neither looked like much.",
+      "Finding the entry point took longer than everything after it. The brute force attempts only became visible once the SMB and HTTP logs were correlated by time rather than searched separately; in isolation neither looked like much.",
     lessons:
       "The rules that mattered were the ones covering the stages before encryption. T1486 fires reliably and tells you almost nothing useful, because by the time it fires the decision you needed to make has already been made for you.",
     metrics: [
@@ -87,10 +87,10 @@ export const projects: Project[] = [
       filename: "detection coverage by stage",
       language: "splunk",
       lines: [
-        { text: "# Impact stage — fires reliably, tells you almost nothing." },
+        { text: "# Impact stage: fires reliably, tells you almost nothing." },
         { text: "T1486  Ransomware and mass file operations   (SMB burst)", kind: "remove" },
         { text: "" },
-        { text: "# Pre-impact — the rules that would have bought time." },
+        { text: "# Pre-impact: the rules that would have bought time." },
         { text: "T1110  Brute force                          (auth failures)", kind: "add" },
         { text: "T1190  Suspicious file upload               (web app)", kind: "add" },
         { text: "T1059  Native script interpreter abuse      (Sysmon EID 1)", kind: "add" },
@@ -116,7 +116,7 @@ export const projects: Project[] = [
     context:
       "Authorised engagement against three hosts in an internal corporate environment, conducted under PTES and the OWASP Testing Guide, with full exploitation permitted inside the test boundary so business impact could be demonstrated rather than assumed.",
     solution:
-      "Fifteen vulnerabilities rated against CVSS — 3 critical, 7 high, 5 medium — each with a prioritised remediation and an ATT&CK mapping. The headline finding was a full chain: server-side template injection giving unauthenticated RCE as root inside a Docker container, a container escape through a writable host-shared directory executed by host automation, then a three-stage sudo and weak-key escalation to root on the host itself.",
+      "Fifteen vulnerabilities rated against CVSS (3 critical, 7 high, 5 medium), each with a prioritised remediation and an ATT&CK mapping. The headline finding was a full chain: server-side template injection giving unauthenticated RCE as root inside a Docker container, a container escape through a writable host-shared directory executed by host automation, then a three-stage sudo and weak-key escalation to root on the host itself.",
     decisions: [
       "Chained the findings rather than listing them. Individually the sudo rules and the writable directory look like hygiene issues; together they are the difference between a contained container compromise and a lost host.",
       "Demonstrated impact by exploitation where permitted, because 'this could theoretically allow' does not survive a conversation with someone deciding a remediation budget.",
@@ -132,7 +132,7 @@ export const projects: Project[] = [
       { label: "report length", value: "42 pages" },
     ],
     snippet: {
-      filename: "TD-01 — identifying the template engine",
+      filename: "TD-01: identifying the template engine",
       language: "http",
       lines: [
         { text: "# Leaked source: user input concatenated into a template" },
@@ -151,7 +151,7 @@ export const projects: Project[] = [
     slug: "container-security-hardening",
     title: "Container security and vulnerability management",
     summary:
-      "Cutting unique known vulnerabilities by roughly 85–90% across a two-tier app — and finding a scanner disagreement that hid 25 critical findings from one of the tools.",
+      "Cutting unique known vulnerabilities by roughly 85 to 90% across a two-tier app, and finding a scanner disagreement that hid 25 critical findings from one of the tools.",
     year: "2026",
     module: "Cloud Security, MSc",
     kind: "Security",
@@ -162,23 +162,23 @@ export const projects: Project[] = [
     context:
       "Assessment and hardening of a containerised two-tier application, carried out on a Docker host from a Kali workstation. Findings cross-checked against NIST SP 800-190, the CIS Docker Benchmark and OWASP container guidance.",
     solution:
-      "Ten test cases defined up front — three functional, seven security — so every change could be verified rather than assumed. The backend was rebuilt from a PostgreSQL base onto minimal Alpine, since the Go app was a fully static binary and never needed the OS or database engine it was inheriting. The frontend moved off end-of-life PHP 7.4 to 8.4. The database was split into its own container, creating a trust boundary that had not previously existed.",
+      "Ten test cases defined up front (three functional, seven security) so every change could be verified rather than assumed. The backend was rebuilt from a PostgreSQL base onto minimal Alpine, since the Go app was a fully static binary and never needed the OS or database engine it was inheriting. The frontend moved off end-of-life PHP 7.4 to 8.4. The database was split into its own container, creating a trust boundary that had not previously existed.",
     decisions: [
       "Split the database out first. Every runtime control afterwards depends on that boundary being real, and it could not be secured until it existed.",
       "Ran two scanners rather than one. Trivy reads the package database; Grype fingerprints binaries. The official PHP image compiles PHP from source, so Trivy could not see PHP at all and reported thousands of OS findings with nothing PHP-related.",
       "Rescanned after every individual change instead of at the end, which is the only reason one of the changes was caught as a regression.",
     ],
     challenges:
-      "Pinning the Go version to the first release of the current series — on the assumption that any specific pin is good practice — reintroduced around forty vulnerabilities including a critical one. The original build had been pulling a much later patched release, and the explicit pin rolled it back past a month of fixes.",
+      "Pinning the Go version to the first release of the current series, on the assumption that any specific pin is good practice, reintroduced around forty vulnerabilities including a critical one. The original build had been pulling a much later patched release, and the explicit pin rolled it back past a month of fixes.",
     lessons:
-      "Version pinning serves reproducibility, and only helps security when it points at something near current. Relying on a single scanner would have shipped 25 vulnerabilities in PHP 7.4.33 that the package-database scanner structurally could not see — I now treat any single-source finding as unconfirmed.",
+      "Version pinning serves reproducibility, and only helps security when it points at something near current. Relying on a single scanner would have shipped 25 vulnerabilities in PHP 7.4.33 that the package-database scanner structurally could not see. I now treat any single-source finding as unconfirmed.",
     metrics: [
       { label: "backend unique CVEs", value: "117 → 15" },
       { label: "frontend unique CVEs", value: "6,206 → 600" },
       { label: "runs as root", value: "no" },
     ],
     snippet: {
-      filename: "Dockerfile — backend",
+      filename: "Dockerfile, backend",
       language: "dockerfile",
       lines: [
         { text: "# A static Go binary, shipped on a full database image." },
@@ -199,7 +199,7 @@ export const projects: Project[] = [
     slug: "ot-risk-assessment-iec-62443",
     title: "OT risk assessment and threat modelling",
     summary:
-      "An independent audit of a UK vehicle manufacturer's factory floor — ten unpatched OT assets, five frameworks compared, and a remediation plan with owners and residual risk.",
+      "An independent audit of a UK vehicle manufacturer's factory floor: ten unpatched OT assets, five frameworks compared, and a remediation plan with owners and residual risk.",
     year: "2026",
     module: "Compliance, Risk and Governance, MSc",
     kind: "Research",
@@ -207,17 +207,17 @@ export const projects: Project[] = [
     problem:
       "A vehicle manufacturer running twelve years without a formal risk assessment, with ten operational technology devices on the factory floor and in vehicles, none of them patched against known vulnerabilities.",
     context:
-      "Independent risk audit covering robot controllers, industrial cameras, CAD workstations, a telematics gateway, an infotainment unit and EV chargers — a mix of plant OT and connected-vehicle assets.",
+      "Independent risk audit covering robot controllers, industrial cameras, CAD workstations, a telematics gateway, an infotainment unit and EV chargers, a mix of plant OT and connected-vehicle assets.",
     solution:
       "Compared five risk frameworks against four selection criteria before choosing IEC 62443, then applied 62443-3-2: partition the estate into five security zones with defined conduits, assign each a target security level based on realistic threat actor capability, and write an asset-specific threat scenario for every device. ISO 21434's TARA methodology was used as a supplementary reference for the two in-vehicle assets.",
     decisions: [
       "Chose IEC 62443 not because it is the best-known framework but because it is the only one of the five actually built for factory-floor IACS environments and capable of producing asset-level, certifiable findings.",
-      "Rejected ISO 21434 as the primary framework despite it being directly relevant to two assets — eight of the ten fall entirely outside its scope.",
+      "Rejected ISO 21434 as the primary framework despite it being directly relevant to two assets: eight of the ten fall entirely outside its scope.",
       "Every recommendation carries a named owner, a timeline, the IEC 62443 security requirement it satisfies, and the residual risk after remediation. A recommendation without an owner is a wish.",
       "Timelines account for testing patches before deployment. An untested patch in an OT environment risks more disruption than the vulnerability it fixes.",
     ],
     challenges:
-      "Several assets had no vendor patch available at all — including a telematics gateway with an unauthenticated MQTT server rated CVSS 10.0 that could issue CAN bus commands fleet-wide. Those needed compensating controls designed around the vulnerability rather than a fix for it.",
+      "Several assets had no vendor patch available at all, including a telematics gateway with an unauthenticated MQTT server rated CVSS 10.0 that could issue CAN bus commands fleet-wide. Those needed compensating controls designed around the vulnerability rather than a fix for it.",
     lessons:
       "Framework selection is most of the work and gets the least attention. Four of the five candidates would have produced a report that looked thorough and could not have supported a single asset-level finding on a robot controller.",
     metrics: [
@@ -240,11 +240,11 @@ export const projects: Project[] = [
     context:
       "Examination of a forensic disk image supplied with hash values, conducted for a simulated police instruction. Windows 8.1 Pro host, four volumes, two NTFS.",
     solution:
-      "Verify the supplied hashes, keep the image read-only and network-isolated throughout, then work each artefact class in turn — registry for system context and user accounts, email, browser history, recent documents, shellbags, jumplists and media — and correlate findings across classes rather than relying on any single source.",
+      "Verify the supplied hashes, keep the image read-only and network-isolated throughout, then work each artefact class in turn (registry for system context and user accounts, email, browser history, recent documents, shellbags, jumplists and media) and correlate findings across classes rather than relying on any single source.",
     decisions: [
       "Verified hashes before anything else and never touched the original evidence, because an examination that cannot demonstrate integrity is not worth conducting.",
       "Used keyword search to find the low-hanging fruit, then examined artefacts individually anyway. Keyword search only tells you what you thought to ask for.",
-      "Reported the suspected malware — a file named to resemble a Microsoft service pack, sitting in a VirtualBox shared folder — as a potential risk rather than an additional offence, because no evidence of execution was found.",
+      "Reported the suspected malware, a file named to resemble a Microsoft service pack and sitting in a VirtualBox shared folder, as a potential risk rather than an additional offence, because no evidence of execution was found.",
     ],
     challenges:
       "853 emails is too many to read and too few to sample. Sorting on recipient and then on recency surfaced the relevant threads quickly, but each still needed individual examination for attachments, the account used, and deleted messages inside threads.",
@@ -260,13 +260,13 @@ export const projects: Project[] = [
     slug: "network-infrastructure-security",
     title: "Network infrastructure design and hardening",
     summary:
-      "Designing, subnetting and securing a 160-employee network end to end — VLSM, OSPF, a DMZ, zone-based firewall policy, ACLs and TACACS+ with local fallback.",
+      "Designing, subnetting and securing a 160-employee network end to end: VLSM, OSPF, a DMZ, zone-based firewall policy, ACLs and TACACS+ with local fallback.",
     year: "2025",
     module: "Network Security, MSc",
     kind: "Security",
     tags: ["OSPF", "Zone-based firewall", "TACACS+"],
     problem:
-      "Five departments with genuinely different access requirements — Finance reachable only by Project Management and IT, HR reachable only by IT — plus public-facing web and mail that could not be allowed to sit on the internal network.",
+      "Five departments with genuinely different access requirements (Finance reachable only by Project Management and IT, HR reachable only by IT), plus public-facing web and mail that could not be allowed to sit on the internal network.",
     context:
       "Full design and implementation for a 160-employee architectural firm in Cisco Packet Tracer: topology, addressing, routing, services, and then the security controls layered on top.",
     solution:
@@ -278,7 +278,7 @@ export const projects: Project[] = [
       "AAA with local fallback everywhere else, so a server outage does not lock administrators out of the estate.",
     ],
     challenges:
-      "Ordering the security layers. Applying ACLs before the zone-based firewall made failures ambiguous — a blocked packet could have come from either. Building outward from the edge one layer at a time was slower and far easier to verify.",
+      "Ordering the security layers. Applying ACLs before the zone-based firewall made failures ambiguous, since a blocked packet could have come from either. Building outward from the edge one layer at a time was slower and far easier to verify.",
     lessons:
       "The DMZ decision to isolate authentication is the one I would defend hardest. It costs a small amount of administrative convenience and removes an entire class of pivot from a compromised public-facing host.",
     metrics: [
@@ -291,7 +291,7 @@ export const projects: Project[] = [
     slug: "healthcare-cryptography-system",
     title: "Applied cryptography for healthcare data",
     summary:
-      "A role-based clinical data system where the interesting problem was never the algorithms — it was where the keys live and what happens when the database is compromised.",
+      "A role-based clinical data system where the interesting problem was never the algorithms. It was where the keys live and what happens when the database is compromised.",
     year: "2026",
     module: "Applied Cryptography, MSc",
     kind: "Software",
@@ -299,28 +299,28 @@ export const projects: Project[] = [
     featured: true,
     repo: "https://github.com",
     problem:
-      "Clinicians upload sensitive datasets, researchers need to read them, auditors need to verify what happened — and the system has to stay defensible under GDPR Article 9 if the database itself is stolen.",
+      "Clinicians upload sensitive datasets, researchers need to read them, auditors need to verify what happened, and the system has to stay defensible under GDPR Article 9 if the database itself is stolen.",
     context:
       "Twelve-module Python system built for the Applied Cryptography module, with three roles (clinician, researcher, auditor), a master data key hierarchy, and an HMAC-signed audit log.",
     solution:
       "A master data key encrypted under a root key, RSA-OAEP wrapped per researcher so access can be granted without re-encrypting datasets. AES-256-CBC for data, RSA-PSS for signing findings, bcrypt for passwords, and PBKDF2 + AES for private keys at rest so a private key is useless without the user's password. Every audit entry is HMAC-SHA256 signed with constant-time comparison, so tampering is detectable.",
     decisions: [
       "Key wrapping over shared secrets, so granting a researcher access is a key operation rather than a re-encryption job across every dataset.",
-      "Private keys encrypted with a PBKDF2-derived key before they touch the database — the password exists only in memory during a session.",
+      "Private keys encrypted with a PBKDF2-derived key before they touch the database. The password exists only in memory during a session.",
       "Login returns a generic error for any failure, so an attacker cannot enumerate registered usernames from the error text.",
       "Designed around human cognitive load deliberately: a control that people route around has moved the vulnerability from the system to the user, not removed it.",
     ],
     challenges:
       "Key distribution was the hardest part by a distance. Choosing AES was trivial; deciding where the key lives, who can unwrap it, and what remains safe if the database is compromised is what actually forced the design into a key hierarchy.",
     lessons:
-      "Cryptographic correctness and system security are not the same thing. My CBC implementation is correct and still leaves an integrity gap — a tampered ciphertext decrypts to garbage without raising an error. GCM or an encrypt-then-MAC construction is the fix, and I would start there next time.",
+      "Cryptographic correctness and system security are not the same thing. My CBC implementation is correct and still leaves an integrity gap: a tampered ciphertext decrypts to garbage without raising an error. GCM or an encrypt-then-MAC construction is the fix, and I would start there next time.",
     metrics: [
       { label: "modules", value: "12" },
       { label: "roles", value: "3" },
       { label: "audit log", value: "HMAC-signed" },
     ],
     snippet: {
-      filename: "key hierarchy — the actual problem",
+      filename: "key hierarchy: the actual problem",
       language: "python",
       lines: [
         { text: "# Not the algorithm choice. The key hierarchy." },

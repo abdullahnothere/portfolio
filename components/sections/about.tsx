@@ -13,7 +13,7 @@ export function About() {
             <p className="lede">
               I spent two years as a software engineer on enterprise platforms before moving into
               security, and that order matters. Most security problems I meet turn out to be systems
-              problems wearing a different hat — a permissive default, a boundary nobody drew, a log
+              problems wearing a different hat: a permissive default, a boundary nobody drew, a log
               that says nothing useful at the moment you need it to.
             </p>
             <p className="lede">
@@ -25,7 +25,7 @@ export function About() {
             <p className="lede">
               Now the work is detection engineering, container hardening, penetration testing and
               forensics. I taught database systems to over a hundred students alongside the engineering
-              job — explaining something badly is the fastest way to find out you do not understand it.
+              job. Explaining something badly is the fastest way to find out you do not understand it.
             </p>
           </div>
         </div>

@@ -87,7 +87,7 @@ export function Contact() {
           </Button>
 
           <p aria-live="polite" className="mt-3 text-[0.85rem] text-muted">
-            {state === "sent" ? "Thanks — I'll reply to the address you gave." : null}
+            {state === "sent" ? "Thanks, I'll reply to the address you gave." : null}
             {state === "error" ? (
               <>Couldn&apos;t send that. Email <a className="text-mint" href={`mailto:${site.email}`}>{site.email}</a> directly and it will reach me.</>
             ) : null}

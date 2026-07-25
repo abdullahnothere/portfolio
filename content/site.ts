@@ -10,7 +10,7 @@ export const site = {
   email: "abdullah.has126@gmail.com",
   phone: "+44 7880 993646",
   location: "Coventry, UK",
-  availability: "Open to graduate roles — UK & EU, from Sept 2026",
+  availability: "Open to graduate roles across the UK & EU, from Sept 2026",
   // TODO: replace with your real GitHub username — this drives the GitHub section.
   github: process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? "abdullah",
   linkedin: "https://www.linkedin.com/in/abdullahhassan01",

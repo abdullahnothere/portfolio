@@ -21,7 +21,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>${escape(site.name)} — Engineering notes</title>
+    <title>${escape(site.name)} · Engineering notes</title>
     <link>${site.url}</link>
     <description>Notes on container security, detection engineering, and secure software delivery.</description>
     <language>en-GB</language>

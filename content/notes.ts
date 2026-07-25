@@ -38,7 +38,7 @@ export const notes: Note[] = [
       { type: "h", text: "Why they disagreed" },
       {
         type: "p",
-        text: "The official PHP image compiles PHP from source rather than installing it through the system package manager. A scanner that works by reading the package database therefore cannot see PHP — not because it failed, but because from its perspective PHP is not installed. Grype fingerprints software directly from the binary, identified PHP 7.4.33, and reported 25 vulnerabilities against it, several critical.",
+        text: "The official PHP image compiles PHP from source rather than installing it through the system package manager. A scanner that works by reading the package database therefore cannot see PHP, not because it failed, but because from its perspective PHP is not installed. Grype fingerprints software directly from the binary, identified PHP 7.4.33, and reported 25 vulnerabilities against it, several critical.",
       },
       {
         type: "code",
@@ -49,7 +49,7 @@ export const notes: Note[] = [
       { type: "h", text: "What I changed" },
       {
         type: "p",
-        text: "I now treat a single-source finding as unconfirmed. Not wrong — unconfirmed. That is a different posture from distrusting tools, and it costs one extra scan to hold.",
+        text: "I now treat a single-source finding as unconfirmed. Not wrong, unconfirmed. That is a different posture from distrusting tools, and it costs one extra scan to hold.",
       },
       {
         type: "quote",
@@ -90,7 +90,7 @@ export const notes: Note[] = [
       },
       {
         type: "p",
-        text: "The broader habit is rescanning after every individual change rather than once at the end. Batch the changes and you learn that your posture improved. Rescan each one and you learn which change did what — including the one that made things worse.",
+        text: "The broader habit is rescanning after every individual change rather than once at the end. Batch the changes and you learn that your posture improved. Rescan each one and you learn which change did what, including the one that made things worse.",
       },
     ],
   },
@@ -144,7 +144,7 @@ export const notes: Note[] = [
       {
         type: "list",
         items: [
-          "ISO 27001 and 27005 are IT-centric — significant adaptation before they say anything about a paint robot",
+          "ISO 27001 and 27005 are IT-centric, needing significant adaptation before they say anything about a paint robot",
           "NIST CSF describes outcomes, not processes, and produces no asset-level measurable findings",
           "ISO 21434 was directly relevant to two assets and entirely out of scope for the other eight",
           "IEC 62443 was the only candidate actually built for industrial control environments",

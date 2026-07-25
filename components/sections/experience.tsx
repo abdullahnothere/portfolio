@@ -13,7 +13,7 @@ export function Experience() {
           </h2>
           <p className="lede mb-8">
             GoSaaS Labs builds enterprise software for Renesas, Fluke and Tektronix. I joined as a
-            graduate and stayed long enough to maintain my own decisions — which turned out to be the
+            graduate and stayed long enough to maintain my own decisions, which turned out to be the
             most useful part of the job. The production support rota is where the security interest
             started.
           </p>
@@ -21,7 +21,7 @@ export function Experience() {
           {/* The same artifact treatment as the hero, applied to what on-call actually looks like. */}
           <Reveal>
             <CodePanel
-              filename="legacy aggregation pipeline — refactor"
+              filename="legacy aggregation pipeline: refactor"
               variant="terminal"
               text={`before   pipeline built up over three years of feature work
          stages added, none ever removed

@@ -19,7 +19,7 @@ export async function GitHub() {
       <h2 className="mb-3.5 text-[clamp(1.9rem,3.6vw,2.7rem)]">Recent activity</h2>
       <p className="lede mb-8">
         Fetched from the GitHub REST API on the server and revalidated hourly.{" "}
-        {data.live ? "Live data." : "Showing cached sample data — the API is rate limited without a token."}
+        {data.live ? "Live data." : "Showing cached sample data, since the API is rate limited without a token."}
       </p>
 
       <dl className="mb-6 grid grid-cols-2 gap-3.5 lg:grid-cols-4">

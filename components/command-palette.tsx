@@ -24,7 +24,7 @@ export function CommandPalette() {
       ...projects.map((p) => ({ label: p.title, href: `/projects/${p.slug}`, group: "Project" })),
       ...notes.map((n) => ({ label: n.title, href: `/notes/${n.slug}`, group: "Note" })),
       ...resumeVariants.map((r) => ({
-        label: `Résumé — ${r.label}`,
+        label: `Résumé: ${r.label}`,
         href: `/resume?variant=${r.id}`,
         group: "Résumé",
       })),

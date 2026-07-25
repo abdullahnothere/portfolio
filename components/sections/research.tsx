@@ -26,7 +26,7 @@ export function Research() {
           <p className="lede mb-5">
             MSc dissertation, University of Warwick. Detection coverage is usually reported as a list
             of techniques a tool claims to cover. That tells you nothing about <em>when</em> you would
-            find out — which is the difference between responding and recovering.
+            find out, which is the difference between responding and recovering.
           </p>
           <p className="lede mb-7">
             The range is deliberately small and fully isolated: a Kali attack host, a Windows 11
@@ -78,7 +78,7 @@ export function Research() {
             </table>
 
             <div className="border-t border-hair px-4 py-3 font-mono text-[0.68rem] leading-relaxed text-dim">
-              Impact is the strongest signal and the least useful one — by the time it fires you are
+              Impact is the strongest signal and the least useful one: by the time it fires you are
               doing recovery. The dissertation weights everything that happens{" "}
               <b className="font-medium text-mint">before</b> it.
             </div>

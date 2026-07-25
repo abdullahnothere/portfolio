@@ -6,7 +6,7 @@ export function Skills() {
     <Section id="skills" eyebrow="Toolkit">
       <h2 className="mb-3.5 text-[clamp(1.9rem,3.6vw,2.7rem)]">What I actually reach for</h2>
       <p className="lede mb-9">
-        Grouped by the kind of problem, not by how well I think I know it. No progress bars — a
+        Grouped by the kind of problem, not by how well I think I know it. No progress bars: a
         percentage next to a language name has never told anyone anything true.
       </p>
 

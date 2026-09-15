@@ -5,15 +5,17 @@ export const skillGroups: SkillGroup[] = [
     title: "Detection and monitoring",
     note: "Writing detection logic, then tuning it so people still read the alerts.",
     items: [
-      "Splunk (SPL)", "Wazuh", "Sysmon", "Microsoft Defender", "Windows Event Logs",
-      "Alert triage", "Log correlation", "Threat hunting", "MITRE ATT&CK", "MITRE D3FEND",
+      "Splunk (SPL)", "Wazuh", "Wazuh rule authoring", "Sysmon", "Microsoft Defender",
+      "Windows Event Logs", "Correlation and frequency rules", "Rule debugging",
+      "File integrity monitoring", "Alert triage", "Log correlation", "Threat hunting",
+      "MITRE ATT&CK", "MITRE D3FEND",
     ],
   },
   {
     title: "Software engineering",
     note: "Two years of it commercially, which is why security problems look like systems problems.",
     items: [
-      "Python", "Bash", "TypeScript", "JavaScript", "SQL", "Node.js", "React",
+      "Python", "PowerShell", "Bash", "TypeScript", "JavaScript", "SQL", "Node.js", "React",
       "PostgreSQL", "MongoDB", "REST APIs", "Git", "CI/CD", "Linux",
     ],
   },
@@ -26,11 +28,12 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    title: "Offensive security",
+    title: "Offensive security and emulation",
     note: "Testing a boundary from the outside, because a diagram is a claim, not evidence.",
     items: [
       "Nmap", "Metasploit", "Burp Suite", "sqlmap", "Gobuster", "ffuf",
-      "Kali Linux", "PTES", "OWASP Testing Guide", "CVSS",
+      "Kali Linux", "Atomic Red Team", "Adversary emulation", "Attack chain modelling",
+      "PTES", "OWASP Testing Guide", "CVSS",
     ],
   },
   {
@@ -39,6 +42,7 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "Autopsy", "FTK Imager", "Registry Explorer", "JumpList Explorer",
       "ShellBag Explorer", "Timeline reconstruction", "Evidence handling",
+      "PCAP analysis (tcpdump)", "SHA-256 evidence manifesting", "Clock drift correlation",
     ],
   },
   {

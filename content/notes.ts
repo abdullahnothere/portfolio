@@ -23,6 +23,114 @@ export type Note = {
 
 export const notes: Note[] = [
   {
+    slug: "protection-is-not-prevention",
+    title: "Protection is not prevention, and the gap is measurable",
+    date: "September 2026",
+    iso: "2026-09-08",
+    topic: "Detection engineering",
+    summary:
+      "Across twenty-one runs of an eleven stage ransomware chain, endpoint protection alerted on three stages and fully stopped one.",
+    body: [
+      {
+        type: "p",
+        text: "For my dissertation I ran the same eleven stage Ransomware-as-a-Service chain twenty-one times in an isolated lab, across four initial access vectors, with endpoint protection switched on and off as a controlled variable. The on and off split was the whole point. Everyone agrees endpoint protection helps. I wanted to know exactly where it helps and where it quietly does not.",
+      },
+      { type: "h", text: "What the numbers were" },
+      {
+        type: "p",
+        text: "Microsoft Defender alerted on 3 of the 11 stages, in 3 to 22 milliseconds, which is roughly a thousand times faster than the SIEM ingested its own alerts. It fully prevented 1 of the 11.",
+      },
+      {
+        type: "code",
+        filename: "21 runs, 11 stages",
+        language: "text",
+        text: "alerted      3 of 11     3-22 ms\nprevented    1 of 11\nno alert     8 of 11     SIEM rules only\n\n# Fast and narrow. The eight stages with no endpoint\n# alert are the reason the 20 custom rules exist.",
+      },
+      {
+        type: "p",
+        text: "Both halves matter. Milliseconds is a genuinely excellent number and no SIEM correlation rule will ever compete with it, because the endpoint sees the process and the SIEM sees a log about the process. But alerting on a quarter of the chain and stopping a single stage of it is not what most people picture when they say a host is protected.",
+      },
+      { type: "h", text: "Why I did not round it up" },
+      {
+        type: "p",
+        text: "3 of 11 and 1 of 11 are unflattering figures for a product I actually rate, and there was a version of this writeup with softer wording and no denominators. The denominators are the reason anyone should believe the rest of the dissertation. A vaguer claim would have been easier to write and impossible to defend in a viva or an interview.",
+      },
+      {
+        type: "quote",
+        text: "A control that alerts in milliseconds on a quarter of the chain is valuable and is not coverage. Both are true at once, and defence in depth is what you build when you accept that.",
+      },
+    ],
+  },
+  {
+    slug: "auditing-your-own-results",
+    title: "I audited my own results and found ten errors",
+    date: "September 2026",
+    iso: "2026-09-02",
+    topic: "Lessons learned",
+    summary:
+      "Re-deriving every headline number from the raw evidence, rather than trusting my own earlier exports, caught ten factual errors before an examiner could.",
+    body: [
+      {
+        type: "p",
+        text: "Before submitting, I went back through a twenty-one run dataset and about fifty pages of results and re-derived the key statistics from the raw evidence instead of from the tables I had already built. This was not a proofread. It was treating my own earlier exports as an untrusted source.",
+      },
+      {
+        type: "p",
+        text: "It found ten factual errors. Most were the ordinary kind: a figure copied forward after the underlying run was repeated, a count that aggregated one run twice. One of them moved a number in my favour and strengthened a finding, which was the most useful result of the exercise, because it proved the audit was not just a search for things that looked wrong.",
+      },
+      { type: "h", text: "Why exports go stale" },
+      {
+        type: "p",
+        text: "Every export is a snapshot of an analysis pipeline at a moment. Re-run one experiment, fix one parser, and every table downstream is a claim about a state that no longer exists. Nothing warns you, because a stale number is still a number and still renders in a table.",
+      },
+      {
+        type: "list",
+        items: [
+          "Derive headline figures from raw evidence at the end, not from intermediate tables",
+          "Hash and manifest the evidence so there is a single thing to derive from",
+          "Expect corrections in both directions, or you are auditing for reassurance",
+        ],
+      },
+      {
+        type: "quote",
+        text: "The cheapest person to find an error is you, the day before you submit. Every other option costs more.",
+      },
+    ],
+  },
+  {
+    slug: "rules-that-never-fired",
+    title: "The rule was loaded, the threshold was passed, nothing fired",
+    date: "August 2026",
+    iso: "2026-08-19",
+    topic: "Detection engineering",
+    summary:
+      "Several of my twenty Wazuh rules silently failed against a condition the data provably exceeded. The rule logic was fine. The chaining was not.",
+    body: [
+      {
+        type: "p",
+        text: "The detection set for my dissertation ran to twenty custom Wazuh rules: some single event, some burst and frequency based, some correlating across stages of the attack chain. During validation, a handful of them did not fire on runs where I could see the triggering behaviour in the raw logs.",
+      },
+      { type: "h", text: "Prove the boring things first" },
+      {
+        type: "p",
+        text: "The temptation is to start rewriting the rule. I did the unglamorous version instead: prove the condition was actually met by counting the events in the raw log, then prove the rule was actually loaded by the manager. Once both are established facts, the problem is no longer 'my detection does not work'. It is the much narrower question of why two things that were both true never met.",
+      },
+      {
+        type: "p",
+        text: "The answer was rule chaining and precedence inside the ruleset rather than anything wrong with the rule logic. Ordering and parent relationships decided that the events were consumed before my rule ever got a chance at them.",
+      },
+      { type: "h", text: "Validating the repair" },
+      {
+        type: "p",
+        text: "I retested with a dedicated before and after run rather than declaring victory once something fired. A rule that starts working immediately after you change three things has not told you which change fixed it, and on a detection you are going to hand to someone else, that difference is the whole value.",
+      },
+      {
+        type: "quote",
+        text: "A rule that does not fire looks exactly like an attack that did not happen. That is the entire problem with silent failure in detection engineering.",
+      },
+    ],
+  },
+  {
     slug: "one-scanner-is-not-enough",
     title: "One scanner is not a second opinion",
     date: "March 2026",

@@ -16,7 +16,10 @@ export const experience: Role[] = [
     summary:
       "Proactive Cyber Defence, Ethical Hacking, Cloud Security, Network Security, Digital Forensics, Applied Cryptography, Compliance Risk and Governance.",
     points: [
-      "Dissertation: measuring detection latency for early ransomware detection across endpoint, identity and network telemetry",
+      "Dissertation: built a four host adversary emulation lab reproducing an eleven stage Ransomware-as-a-Service attack chain mapped to MITRE ATT&CK, then ran a twenty-one run controlled experiment across four initial access vectors and two endpoint protection states to measure what a Wazuh SIEM detects and what it misses",
+      "Authored twenty custom Wazuh correlation rules spanning single event, burst and cross-stage logic; traced rules that were silently failing to fire to a rule chaining and precedence defect, repaired it, and validated the fix with a controlled before and after retest",
+      "Quantified endpoint protection as a controlled variable: Microsoft Defender alerted on 3 of 11 attack stages in 3 to 22 milliseconds, roughly a thousand times faster than SIEM ingestion, but fully prevented only 1 of 11, which became the evidence base for the defence in depth recommendations",
+      "Automated the experiment pipeline in Python: run orchestration, SHA-256 evidence manifesting, NDJSON structured logging with schema provenance, and results aggregation from raw logs into an evaluation table",
       "Coursework spanning detection engineering, penetration testing, container security, OT risk assessment and digital forensics",
     ],
   },

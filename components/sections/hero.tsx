@@ -20,10 +20,11 @@ export function Hero() {
         </h1>
 
         <p className="my-7 max-w-[52ch] text-muted">
-          I&apos;m Abdullah, finishing an MSc in Cyber Security Engineering at the University of
-          Warwick, after two years as a software engineer building backend services and APIs at
-          GoSaaS Labs. Now split between detection engineering, container security and forensics,
-          approached as systems problems because that is where I came from.
+          I&apos;m Abdullah. I just finished an MSc in Cyber Security Engineering at the University
+          of Warwick, after two years as a software engineer building backend services and APIs at
+          GoSaaS Labs. My dissertation built a ransomware attack chain in a lab and measured what a
+          SIEM actually catches. The rest of the work is detection engineering, container security
+          and forensics, approached as systems problems because that is where I came from.
         </p>
 
         <div className="flex flex-wrap gap-3">

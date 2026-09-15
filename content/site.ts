@@ -6,11 +6,11 @@ export const site = {
   role: "Software & Cyber Security Engineer",
   tagline: "Building software I can defend as well as ship.",
   description:
-    "Cyber security engineer with a software engineering background. MSc Cyber Security Engineering at the University of Warwick, after two years building enterprise platforms at GoSaaS Labs. Detection engineering, cloud and container security, penetration testing and digital forensics.",
+    "Cyber security engineer with a software engineering background. MSc Cyber Security Engineering at the University of Warwick, after two years building enterprise platforms at GoSaaS Labs. Detection engineering, adversary emulation, cloud and container security, penetration testing and digital forensics.",
   email: "abdullah.has126@gmail.com",
   phone: "+44 7880 993646",
   location: "Coventry, UK",
-  availability: "Open to graduate roles across the UK & EU, from Sept 2026",
+  availability: "MSc submitted. Open to graduate roles across the UK & EU, available now",
   // TODO: replace with your real GitHub username — this drives the GitHub section.
   github: process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? "abdullah",
   linkedin: "https://www.linkedin.com/in/abdullahhassan01",

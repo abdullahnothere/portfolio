@@ -152,19 +152,18 @@ hard refresh (it should not flash).
 
 Roughly in the order I would do them.
 
-1. **Replace the placeholder numbers.** The latency figures, CVE counts and
-   incident timeline read like real measurements because they are written like
-   them. Every one is invented. Nothing else on this list matters until this is done.
-2. **Real GitHub contributions.** The heat grid is deterministic placeholder
+1. **Real GitHub contributions.** The heat grid and the "1,204 contributions"
+   stat in `components/sections/github.tsx` are still deterministic placeholder
    data; the actual contribution calendar needs the GraphQL API and a token.
-3. **Wire the contact form** to Resend or Postmark, and add a honeypot field plus
+   This is the last invented number on the site.
+2. **Wire the contact form** to Resend or Postmark, and add a honeypot field plus
    rate limiting on the route.
-4. **OG images per page** via `opengraph-image.tsx` and `next/og`, so a shared
+3. **OG images per page** via `opengraph-image.tsx` and `next/og`, so a shared
    project link previews with its own title.
-5. **View transitions** between the projects grid and a case study — the one
+4. **View transitions** between the projects grid and a case study, the one
    place extra motion would genuinely help.
-6. **Analytics** on résumé downloads and outbound repo clicks (Vercel Analytics
+5. **Analytics** on résumé downloads and outbound repo clicks (Vercel Analytics
    is a single component).
-7. **A test or two** — Playwright over the palette, the theme toggle, and one
+6. **A test or two.** Playwright over the palette, the theme toggle, and one
    case study route would catch most regressions.
-8. **MDX** if writing notes in TypeScript objects starts to chafe.
+7. **MDX** if writing notes in TypeScript objects starts to chafe.

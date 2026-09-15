@@ -21,9 +21,9 @@ export const metadata: Metadata = {
  */
 const profileByVariant: Record<ResumeVariant["id"], string> = {
   software:
-    "Software engineer with two years of commercial backend experience, currently completing an MSc in Cyber Security Engineering. Comfortable owning a service end to end: designing it, shipping it, and being on the rota when it misbehaves.",
+    "Software engineer with two years of commercial backend experience and an MSc in Cyber Security Engineering from the University of Warwick. Comfortable owning a service end to end: designing it, shipping it, and being on the rota when it misbehaves.",
   security:
-    "Cyber security engineer with a software engineering background: two years shipping production backends before moving into detection engineering and defensive research. Comfortable reading an incident from the logs up, and building the controls that mean it doesn't happen twice.",
+    "Cyber security engineer with a software engineering background: two years shipping production backends before an MSc in Cyber Security Engineering, with a dissertation that emulated an eleven stage ransomware attack chain across twenty-one controlled runs and measured what the SIEM and the endpoint each actually caught. Comfortable reading an incident from the logs up, and building the controls that mean it doesn't happen twice.",
 };
 
 export default function ResumePage({

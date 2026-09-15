@@ -23,35 +23,51 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "ransomware-detection-cyber-range",
-    title: "Early ransomware detection cyber range",
+    slug: "raas-detection-engineering-lab",
+    title: "RaaS attack chain emulation and detection lab",
     summary:
-      "An isolated range across Kali, Windows 11 and Wazuh, built to measure how early ransomware is actually detectable, and where the coverage is thinner than it looks.",
+      "A four-host lab that safely reproduces an eleven-stage Ransomware-as-a-Service attack chain, then twenty-one controlled runs measuring what a Wazuh SIEM actually catches. Endpoint protection alerted on 3 of the 11 stages and fully prevented 1.",
     year: "2026",
-    module: "MSc dissertation, in progress",
+    module: "MSc dissertation, University of Warwick",
     kind: "Research",
-    tags: ["Wazuh", "Sysmon", "MITRE ATT&CK"],
+    tags: ["Wazuh", "Sysmon", "MITRE ATT&CK", "Atomic Red Team", "Python"],
     featured: true,
     problem:
-      "Detection coverage is usually described in terms of which techniques a tool claims to cover. That says nothing about when in an attack you would actually find out, which is the number that decides whether you are responding or recovering.",
+      "Detection coverage is usually described as a list of techniques a tool claims to cover. That says nothing about which stages of a real attack chain produce an alert, how fast the alert arrives, or whether anything actually stops. Answering that needs the same chain replayed enough times, under controlled conditions, to tell a genuine gap from a noisy run.",
     context:
-      "MSc dissertation at the University of Warwick, in progress. An isolated cyber range: a Kali Linux attack host, a Windows 11 endpoint, and an Ubuntu server running Wazuh.",
+      "MSc dissertation at the University of Warwick. A four-host isolated lab: a Kali attack host, two Windows 11 victims, and an Ubuntu server running the Wazuh manager. The emulation reproduces the behaviour of a Ransomware-as-a-Service operation across eleven ATT&CK-mapped stages, with no live ransomware and no encryption of real data.",
     solution:
-      "Collect telemetry from Microsoft Defender, Sysmon, Windows Event Logs and network monitoring so the same attack is observed from endpoint, identity and network at once. Then measure detection latency and alert coverage across simulated scenarios and map what fires to MITRE ATT&CK.",
+      "A modular Python emulation platform, compiled to a single executable, drives all eleven stages: initial access, execution, discovery, persistence, privilege escalation, credential access, defence evasion, lateral movement, exfiltration, impact and C2, mapped to MITRE ATT&CK v19. Seven stages run through Atomic Red Team; delivery, exfiltration, impact and cleanup are custom modules. Wazuh ingests Sysmon, the Windows Security, PowerShell and System channels, and Defender telemetry, with full packet capture alongside as an independent evidence source. Twenty-one runs cover four initial access vectors, phishing macro, USB, cloud download and credential abuse, in both endpoint protection states.",
     decisions: [
-      "Three telemetry sources on the same attack rather than one, because the interesting result is which source sees a technique first, not whether any source sees it at all.",
-      "Latency as the primary measure, not coverage. A technique that is detectable only at the encryption stage is not really covered.",
-      "Fully isolated range, so scenarios can be replayed identically instead of compared across runs that were not the same.",
+      "Four initial access vectors rather than one. A chain that is only ever entered the same way tells you about that entry point, not about the chain.",
+      "Endpoint protection treated as a controlled variable, tested on and off across the matrix. That is what turned a general belief that Defender helps into two numbers I can defend: 3 of 11 stages alerted, 1 of 11 prevented.",
+      "Full packet capture retained as an independent evidence source, so a claim about what happened does not rest solely on the SIEM that is itself under test.",
+      "Every run's evidence SHA-256 hashed and manifested rather than summarised, so any figure in the writeup traces back to the raw log line that produced it.",
     ],
     challenges:
-      "Making runs genuinely comparable is harder than building the range. Small differences in timing and host state change what fires, so the environment has to be reset properly between scenarios rather than approximately.",
+      "Twenty custom Wazuh rules covering single-event, burst and cross-stage correlation logic, and several of them silently failed to fire against a trigger condition the data provably exceeded. The cause sat in rule chaining and precedence within the ruleset rather than in the rule logic itself. Isolating it meant proving the condition was met, proving the rule was loaded, and then working out why those two facts never met. I repaired it and validated the repair with a dedicated before and after retest rather than assuming the fix worked.",
     lessons:
-      "In progress. The output I care about is a coverage map that distinguishes techniques detected early from techniques detected once it is already too late to matter.",
+      "Protection is not prevention, and the gap is measurable. Defender alerted on 3 of the 11 stages in 3 to 22 milliseconds, roughly a thousand times faster than the SIEM ingested its own alerts, and fully prevented 1. That is a strong argument for defence in depth and a weak one for treating any single control as coverage. The second lesson was procedural: auditing my own twenty-one-run dataset back against the raw evidence before submission, instead of trusting earlier exports, caught ten factual errors, one of which strengthened a finding.",
     metrics: [
-      { label: "telemetry sources", value: "4" },
-      { label: "primary measure", value: "detection latency" },
-      { label: "status", value: "in progress" },
+      { label: "controlled runs", value: "21" },
+      { label: "ATT&CK stages emulated", value: "11" },
+      { label: "alerted / prevented", value: "3 / 1 of 11" },
     ],
+    snippet: {
+      filename: "endpoint protection, measured across 21 runs",
+      language: "text",
+      lines: [
+        { text: "# Same 11-stage chain. Protection ON and OFF." },
+        { text: "" },
+        { text: "alerted      3 of 11 stages     3-22 ms", kind: "add" },
+        { text: "prevented    1 of 11 stages", kind: "remove" },
+        { text: "no alert     8 of 11 stages     SIEM rules only" },
+        { text: "" },
+        { text: "# The endpoint is ~1000x faster than SIEM ingestion" },
+        { text: "# and covers a quarter of the chain. Neither control" },
+        { text: "# is coverage on its own, which is the whole finding." },
+      ],
+    },
   },
   {
     slug: "detection-engineering-splunk",

@@ -9,7 +9,7 @@ export function Experience() {
       <div className="grid grid-cols-1 gap-11 lg:grid-cols-2">
         <div>
           <h2 className="mb-3.5 text-[clamp(1.9rem,3.6vw,2.7rem)]">
-            Two years on platforms with real users.
+            Two and a half years on platforms with real users.
           </h2>
           <p className="lede mb-8">
             GoSaaS Labs builds enterprise software for Renesas, Fluke and Tektronix. I joined as a

@@ -2,11 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-  Palette: Keppel / Gunmetal / Outer Space / Arsenic / Rhythm.
-  Light is the default. Dark is a re-derived scheme, not an inversion:
-  the mint lightens and the greys warm slightly so contrast holds both ways.
-*/
+/* Light theme by default, dark theme below */
 @layer base {
   :root {
     --ground: 160 11% 96%;
@@ -101,18 +97,8 @@
   }
 }
 
-/*
-  Scroll-reveal system.
-
-  .reveal-base     — the wrapper, always visible by default.
-  .reveal-pending  — added by JS on the client. Hides it before intersection.
-  .reveal-in       — added when the element enters the viewport.
-
-  Key guarantee: if JS never runs, .reveal-pending is never added, so content
-  is always visible. The animation is a progressive enhancement.
-*/
+/* Scroll reveal: .reveal-pending is only added by JS, so content shows without it */
 .reveal-base {
-  /* Visible by default — no opacity:0 on the server. */
 }
 
 .reveal-pending {

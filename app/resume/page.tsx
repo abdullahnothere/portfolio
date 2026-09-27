@@ -13,17 +13,11 @@ export const metadata: Metadata = {
   alternates: { canonical: `${site.url}/resume` },
 };
 
-/**
- * Profile blurb per variant. Everything below (experience, skills) is still
- * shared data — TODO once the real PDFs are in: split content/experience.ts
- * and content/skills.ts by variant too, so the software and security résumés
- * actually differ in more than the opening line and the download target.
- */
 const profileByVariant: Record<ResumeVariant["id"], string> = {
   software:
-    "Software engineer with two years of commercial backend experience and an MSc in Cyber Security Engineering from the University of Warwick. Comfortable owning a service end to end: designing it, shipping it, and being on the rota when it misbehaves.",
+    "Software engineer with two and a half years of commercial backend experience and an MSc in Cyber Security Engineering from the University of Warwick. Comfortable owning a service end to end: designing it, shipping it, and being on the rota when it misbehaves.",
   security:
-    "Cyber security engineer with a software engineering background: two years shipping production backends before an MSc in Cyber Security Engineering, with a dissertation that emulated an eleven stage ransomware attack chain across twenty-one controlled runs and measured what the SIEM and the endpoint each actually caught. Comfortable reading an incident from the logs up, and building the controls that mean it doesn't happen twice.",
+    "Cyber security engineer with a software engineering background: two and a half years shipping production backends before an MSc in Cyber Security Engineering, with a dissertation that emulated an eleven stage ransomware attack chain across twenty-one controlled runs and measured what the SIEM and the endpoint each actually caught. Comfortable reading an incident from the logs up, and building the controls that mean it doesn't happen twice.",
 };
 
 export default function ResumePage({
@@ -51,7 +45,6 @@ export default function ResumePage({
         </div>
       </div>
 
-      {/* Variant toggle — both options shown equally, no default styling bias. */}
       <div className="no-print mb-9 inline-flex rounded-[10px] border border-hair p-1">
         {resumeVariants.map((r) => (
           <Link
@@ -67,11 +60,6 @@ export default function ResumePage({
         ))}
       </div>
 
-      {/*
-        An HTML résumé rather than an embedded PDF viewer: it is readable on a
-        phone, selectable, indexable, and prints cleanly. The PDF is still one
-        click away for anyone who needs to attach it to an ATS.
-      */}
       <article className="mx-auto max-w-[780px] rounded-xl border border-hair bg-surface p-9 shadow-lift max-sm:p-6">
         <header>
           <h2 className="text-[1.6rem]">{site.name}</h2>

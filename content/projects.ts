@@ -167,7 +167,7 @@ export const projects: Project[] = [
     slug: "container-security-hardening",
     title: "Container security and vulnerability management",
     summary:
-      "Cutting unique known vulnerabilities by roughly 85 to 90% across a two-tier app, and finding a scanner disagreement that hid 25 critical findings from one of the tools.",
+      "Cutting unique known vulnerabilities by roughly 85 to 90% across a two-tier app, and finding a scanner disagreement that hid 25 vulnerabilities from one of the tools.",
     year: "2026",
     module: "Cloud Security, MSc",
     kind: "Security",
@@ -206,6 +206,7 @@ export const projects: Project[] = [
         { text: "" },
         { text: "FROM alpine:3.22", kind: "add" },
         { text: "COPY --from=build /api /usr/local/bin/api", kind: "add" },
+        { text: "RUN adduser -D -u 10001 appuser", kind: "add" },
         { text: "USER appuser", kind: "add" },
         { text: "HEALTHCHECK CMD [\"/usr/local/bin/api\", \"-healthcheck\"]", kind: "add" },
       ],

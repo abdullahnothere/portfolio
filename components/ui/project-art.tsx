@@ -1,8 +1,4 @@
-/**
- * Generated card artwork: a raking grid whose angle and node position derive
- * from the card's index, so every card is distinct without any image assets.
- * Cheap, themeable, and it never looks like stock photography.
- */
+// Card artwork drawn from the card index, so no image assets are needed.
 export function ProjectArt({ seed }: { seed: number }) {
   const lines = Array.from({ length: 9 }, (_, n) => ({
     x1: -40 + n * 40 + seed * 7,

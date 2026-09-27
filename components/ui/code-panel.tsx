@@ -11,10 +11,6 @@ type Props = {
   className?: string;
 };
 
-/**
- * The site's signature element. Used sparingly — hero, one case study artifact,
- * an incident log, and article code blocks — so it stays a signal rather than wallpaper.
- */
 export function CodePanel({ filename, variant = "file", lines, text, footer, className }: Props) {
   const rows: CodeLine[] = lines ?? (text ?? "").split("\n").map((t) => ({ text: t }));
 

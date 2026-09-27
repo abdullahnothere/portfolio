@@ -2,11 +2,7 @@ import { Section } from "@/components/ui/section";
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 
-/**
- * Data as artifact: the code-panel chrome carrying measurements instead of code.
- * Measured values from the dissertation's 21-run matrix. Every figure here is
- * one from the submitted results, not an illustration.
- */
+// Figures from the dissertation's 21-run results.
 const findings = [
   {
     outcome: "Alerted",

@@ -13,7 +13,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "Software engineering",
-    note: "Two years of it commercially, which is why security problems look like systems problems.",
+    note: "Two and a half years of it commercially, which is why security problems look like systems problems.",
     items: [
       "Python", "PowerShell", "Bash", "TypeScript", "JavaScript", "SQL", "Node.js", "React",
       "PostgreSQL", "MongoDB", "REST APIs", "Git", "CI/CD", "Linux",

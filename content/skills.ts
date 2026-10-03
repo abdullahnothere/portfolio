@@ -62,3 +62,41 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
 ];
+
+/** The résumé prints titles and items only, so it does not need the notes. */
+export type ResumeSkillGroup = { title: string; items: string[] };
+
+/**
+ * The security résumé is the full toolkit above, security first. The software
+ * résumé is a different cut, not a subset: languages and delivery lead, and the
+ * security work appears as secure development rather than as seven specialist
+ * groups a backend interviewer will not read.
+ */
+export const resumeSkills: Record<"software" | "security", ResumeSkillGroup[]> = {
+  software: [
+    {
+      title: "Languages",
+      items: ["Python", "TypeScript", "JavaScript", "SQL", "Bash", "PowerShell"],
+    },
+    {
+      title: "Backend and data",
+      items: ["Node.js", "React", "REST APIs", "PostgreSQL", "MongoDB"],
+    },
+    {
+      title: "Infrastructure and delivery",
+      items: ["AWS", "Docker", "Kubernetes", "CI/CD", "Git", "Linux"],
+    },
+    {
+      title: "Secure development",
+      items: [
+        "RBAC", "OWASP Top 10", "Threat modelling", "Dependency and image scanning",
+        "Trivy", "Grype", "CIS Benchmarks",
+      ],
+    },
+    {
+      title: "Production support",
+      items: ["Incident investigation", "Log correlation", "Splunk (SPL)", "Alert triage"],
+    },
+  ],
+  security: skillGroups,
+};

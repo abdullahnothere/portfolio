@@ -7,14 +7,7 @@ import { resumeVariants } from "@/content/site";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-/**
- * Résumé picker. Renders as a button that opens a small popover with both
- * variants listed equally — no default, no pre-selection. Each row offers
- * View (opens /resume?variant=x) and Download (direct PDF link).
- *
- * Used in three places: nav, hero, and the /resume page itself. Keep this as
- * the single source of the option list so all three never drift apart.
- */
+// Résumé picker used in the nav, hero and /resume page.
 export function ResumeDropdown({
   variant = "outline",
   size = "md",

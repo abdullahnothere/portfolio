@@ -4,11 +4,7 @@ import { useActiveSection } from "@/lib/use-active-section";
 import { sectionIds } from "@/content/site";
 import { cn } from "@/lib/utils";
 
-/**
- * Signature navigation: a hairline trace down the left edge. Each node is a
- * section; the active one extends and takes the accent. Hidden below lg,
- * where the sticky nav does the same job.
- */
+// Section progress rail on the left edge. Hidden on smaller screens.
 export function SectionRail() {
   const active = useActiveSection(sectionIds);
 

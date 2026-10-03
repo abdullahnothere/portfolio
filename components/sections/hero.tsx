@@ -21,7 +21,7 @@ export function Hero() {
 
         <p className="my-7 max-w-[52ch] text-muted">
           I&apos;m Abdullah. I just finished an MSc in Cyber Security Engineering at the University
-          of Warwick, after two years as a software engineer building backend services and APIs at
+          of Warwick, after two and a half years as a software engineer building backend services and APIs at
           GoSaaS Labs. My dissertation built a ransomware attack chain in a lab and measured what a
           SIEM actually catches. The rest of the work is detection engineering, container security
           and forensics, approached as systems problems because that is where I came from.
@@ -34,12 +34,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/*
-        The thesis of the page: an artifact, not a portrait.
-        Deliberately NOT wrapped in <Reveal>. Above-the-fold content must never
-        depend on JavaScript to become visible — if hydration fails, a
-        scroll-reveal wrapper leaves this permanently at opacity 0.
-      */}
+      {/* Not wrapped in Reveal so it shows without JS */}
       <CodePanel
         filename="Dockerfile: container hardening"
         variant="diff"

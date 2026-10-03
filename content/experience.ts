@@ -26,7 +26,7 @@ export const experience: Role[] = [
   {
     org: "GoSaaS Labs (Renesas, Fluke and Tektronix accounts)",
     title: "Software Engineer",
-    period: "Jul 2023 to Aug 2025",
+    period: "Jul 2023 to Dec 2025",
     summary: "Enterprise platforms serving three global clients.",
     points: [
       "Investigated and resolved production incidents across enterprise platforms serving three global clients, working from application behaviour, system logs and error output under time pressure",

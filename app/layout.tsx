@@ -57,18 +57,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-GB" suppressHydrationWarning className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <head>
-        {/*
-          Theme initialisation script. Runs before React hydrates so:
-          1. No flash of wrong theme on reload.
-          2. The toggle works even if React never hydrates.
-          next-themes does similar work, but we can't depend on it loading.
-        */}
+        {/* Set the theme before hydration to avoid a flash */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark')}catch(e){}})()`,
           }}
         />
-        {/* Calendly's own stylesheet — small enough not to matter, loaded once. */}
         <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
       </head>
       <body>
@@ -90,13 +84,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
-        {/*
-          afterInteractive: fetched right after the page becomes interactive,
-          in the background, without blocking hydration or first paint. The
-          page has nine sections above Meeting, so by the time anyone scrolls
-          there this has almost always already finished loading — no visible
-          delay, and nothing loaded on first paint that could slow it down.
-        */}
         <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
       </body>
     </html>

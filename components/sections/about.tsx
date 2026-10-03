@@ -11,7 +11,7 @@ export function About() {
           <h2 className="mb-3.5 text-[clamp(1.9rem,3.6vw,2.7rem)]">I like systems I can reason about.</h2>
           <div className="space-y-4">
             <p className="lede">
-              I spent two years as a software engineer on enterprise platforms before moving into
+              I spent two and a half years as a software engineer on enterprise platforms before moving into
               security, and that order matters. Most security problems I meet turn out to be systems
               problems wearing a different hat: a permissive default, a boundary nobody drew, a log
               that says nothing useful at the moment you need it to.

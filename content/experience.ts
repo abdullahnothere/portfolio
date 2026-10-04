@@ -5,6 +5,11 @@ export type Role = {
   current?: boolean;
   summary: string;
   points: string[];
+  /**
+   * Optional per-variant cut used only by /resume. Anything not listed here
+   * falls back to `points`, which is also what the home page timeline reads.
+   */
+  pointsByVariant?: Partial<Record<"software" | "security", string[]>>;
 };
 
 export const experience: Role[] = [
@@ -22,6 +27,14 @@ export const experience: Role[] = [
       "Automated the experiment pipeline in Python: run orchestration, SHA-256 evidence manifesting, NDJSON structured logging with schema provenance, and results aggregation from raw logs into an evaluation table",
       "Coursework spanning detection engineering, penetration testing, container security, OT risk assessment and digital forensics",
     ],
+    pointsByVariant: {
+      software: [
+        "Dissertation: designed and built a modular Python emulation platform, compiled to a single executable, that drives an eleven stage attack chain across a four host lab, then ran and measured a twenty-one run controlled experiment against it",
+        "Automated the full experiment pipeline in Python: run orchestration, SHA-256 evidence manifesting, NDJSON structured logging with schema and version provenance, and results aggregation from raw logs into an evaluation table",
+        "Audited my own twenty-one-run dataset by re-deriving every headline figure from the raw evidence instead of trusting earlier exports, which caught ten factual errors before submission",
+        "Coursework spanning cloud security, network security, applied cryptography and digital forensics",
+      ],
+    },
   },
   {
     org: "GoSaaS Labs (Renesas, Fluke and Tektronix accounts)",
@@ -36,6 +49,15 @@ export const experience: Role[] = [
       "Built and maintained backend services and REST APIs in Node.js, React, PostgreSQL and MongoDB; improved application performance by around 30% by refactoring legacy aggregation pipelines",
       "Mentored two junior developers through onboarding and kept team documentation current",
     ],
+    pointsByVariant: {
+      software: [
+        "Built and maintained backend services and REST APIs in Node.js, React, PostgreSQL and MongoDB; improved application performance by around 30% by refactoring legacy aggregation pipelines",
+        "Deployed and managed services on AWS with Docker and Kubernetes across CI/CD pipelines",
+        "Investigated and resolved production incidents across enterprise platforms serving three global clients, working from application behaviour, system logs and error output under time pressure",
+        "Built role-based access control and secure search from scratch, so users only reached data they were cleared for",
+        "Mentored two junior developers through onboarding and kept team documentation current",
+      ],
+    },
   },
   {
     org: "FAST National University of Computer and Emerging Sciences",

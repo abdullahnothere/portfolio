@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Download, Printer } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { experience } from "@/content/experience";
-import { skillGroups } from "@/content/skills";
+import { resumeSkills } from "@/content/skills";
 import { site, resumeVariants, type ResumeVariant } from "@/content/site";
 import { PrintButton } from "./print-button";
 
@@ -33,7 +33,7 @@ export default function ResumePage({
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="mb-3 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-mint">Résumé</p>
-          <h1 className="text-[clamp(2rem,4vw,2.8rem)]">One page, kept current</h1>
+          <h1 className="text-[clamp(2rem,4vw,2.8rem)]">Two versions, depending on the role</h1>
         </div>
         <div className="no-print flex flex-wrap gap-2.5">
           <ButtonLink href={active.pdfPath} variant="primary" download>
@@ -64,7 +64,7 @@ export default function ResumePage({
         <header>
           <h2 className="text-[1.6rem]">{site.name}</h2>
           <p className="text-[0.92rem] text-muted">
-            {active.id === "security" ? "Cyber Security Engineer" : site.role} · {site.location}
+            {active.id === "security" ? "Cyber Security Engineer" : "Software Engineer"} · {site.location}
           </p>
           <p className="mt-1 font-mono text-[0.76rem] text-dim">
             {site.email} · github.com/{site.github}
@@ -85,7 +85,9 @@ export default function ResumePage({
             </div>
             <p className="text-[0.86rem] text-dim">{role.org}</p>
             <ul className="mt-1.5 list-disc space-y-1 pl-5 text-[0.89rem] text-muted">
-              {role.points.map((p) => <li key={p}>{p}</li>)}
+              {(role.pointsByVariant?.[active.id] ?? role.points).map((p) => (
+                <li key={p}>{p}</li>
+              ))}
             </ul>
           </div>
         ))}
@@ -93,7 +95,7 @@ export default function ResumePage({
         <Rule />
         <SectionTitle>Skills</SectionTitle>
         <dl className="space-y-2 text-[0.89rem]">
-          {skillGroups.map((g) => (
+          {resumeSkills[active.id].map((g) => (
             <div key={g.title} className="sm:flex sm:gap-4">
               <dt className="min-w-[170px] font-medium">{g.title}</dt>
               <dd className="text-muted">{g.items.join(" · ")}</dd>
